@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<title>MedLink — Orders</title>
+<script>
+  if (localStorage.getItem('medlink-theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body data-page="orders">
+
+<div class="site-shell">
+  <div class="sidebar__backdrop" id="backdrop"></div>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="main">
+    <header class="topbar" id="topbar"></header>
+
+    <main class="content">
+
+      <div class="page-header-row">
+        <div class="page-header">
+          <h1 id="ordersPageTitle">Orders</h1>
+          <p id="ordersPageSubtitle">Every order you place with a distributor shows up here, with live status.</p>
+        </div>
+        <a class="btn-primary" href="search-medicines.html" id="newOrderBtn"><i class="ti ti-plus"></i> New order</a>
+      </div>
+
+      <div class="status-banner" id="statusBanner"></div>
+
+      <div class="card">
+        <div class="table-wrap">
+          <table class="data-table" id="ordersTable" style="display:none;">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Items</th>
+                <th id="partyColumn">Distributor</th>
+                <th id="addressColumn" style="display:none;">Delivery Address</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="ordersBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="ordersEmptyState">
+          <div class="empty-state__icon"><i class="ti ti-clipboard-list"></i></div>
+          <h3 id="ordersEmptyTitle">You haven't placed any orders yet</h3>
+          <p id="ordersEmptyText">Search for medicines and place your first order — it'll appear in this table with real-time status.</p>
+          <a class="btn-primary" href="search-medicines.html" id="ordersEmptyAction"><i class="ti ti-search"></i> Browse medicines</a>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/orders.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<svg width="40" height="40" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- MedLink mark: a "+" built from two connecting bars, joined by a link-dot.
+       Deliberately not a medical cross: colors are brand blue/orange/gold,
+       proportions are rounder and off-center-weighted like a link icon. -->
+  <rect x="25" y="4" width="14" height="56" rx="7" fill="#2563EB"/>
+  <rect x="4" y="25" width="56" height="14" rx="7" fill="#F97316"/>
+  <circle cx="32" cy="32" r="8" fill="#FBBF24"/>
+</svg>

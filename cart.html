@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<title>MedLink — Cart</title>
+<script>
+  if (localStorage.getItem('medlink-theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body data-page="cart">
+
+<div class="site-shell">
+  <div class="sidebar__backdrop" id="backdrop"></div>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="main">
+    <header class="topbar" id="topbar"></header>
+
+    <main class="content">
+
+      <div class="page-header">
+        <h1>Cart</h1>
+        <p>Items you've added from the medicine catalog, ready to order.</p>
+      </div>
+
+      <div class="status-banner" id="statusBanner"></div>
+
+      <div class="card" id="cartCard">
+        <div class="table-wrap">
+          <table class="data-table" id="cartTable" style="display:none;">
+            <thead>
+              <tr>
+                <th>Medicine</th>
+                <th>Distributor</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Subtotal</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="cartBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="cartEmptyState">
+          <div class="empty-state__icon"><i class="ti ti-shopping-cart"></i></div>
+          <h3>Your cart is empty</h3>
+          <p>Add medicines from the catalog to build your order.</p>
+          <a class="btn-primary" href="search-medicines.html"><i class="ti ti-search"></i> Search medicines</a>
+        </div>
+      </div>
+
+      <div class="card" id="totalCard" style="display:none; margin-top:16px;">
+        <h3 style="margin-top:0;">Delivery address</h3>
+        <div id="addressSection" style="margin-bottom:20px;">
+          <select id="addressSelect" style="display:none; width:100%; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--surface); color:var(--text-primary); margin-bottom:8px;"></select>
+          <a href="#" id="addNewAddressLink" style="display:none; font-size:13px; color:var(--primary); font-weight:600;">+ Use a different address</a>
+
+          <div id="inlineAddressForm">
+            <div class="field">
+              <label for="newAddrLine">Address (shop no., street, area)</label>
+              <input type="text" id="newAddrLine" placeholder="e.g. Shop 4, MG Road">
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div class="field">
+                <label for="newAddrCity">City</label>
+                <input type="text" id="newAddrCity" placeholder="e.g. Pune">
+              </div>
+              <div class="field">
+                <label for="newAddrState">State</label>
+                <input type="text" id="newAddrState" placeholder="e.g. Maharashtra">
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div class="field">
+                <label for="newAddrPincode">Pincode</label>
+                <input type="text" id="newAddrPincode" maxlength="6" placeholder="e.g. 411001">
+              </div>
+              <div class="field">
+                <label for="newAddrPhone">Phone</label>
+                <input type="tel" id="newAddrPhone" placeholder="e.g. 9876543210">
+              </div>
+            </div>
+            <button class="btn-secondary" type="button" id="saveNewAddressBtn"><i class="ti ti-map-pin"></i> Save this address</button>
+          </div>
+        </div>
+
+        <h3>Payment method</h3>
+        <div class="field" style="display:flex; gap:16px; margin-bottom:14px;">
+          <label style="display:flex; align-items:center; gap:6px; font-weight:400;"><input type="radio" name="paymentMethod" value="UPI" checked style="width:auto;"> UPI</label>
+          <label style="display:flex; align-items:center; gap:6px; font-weight:400;"><input type="radio" name="paymentMethod" value="CARD" style="width:auto;"> Card</label>
+          <label style="display:flex; align-items:center; gap:6px; font-weight:400;"><input type="radio" name="paymentMethod" value="COD" style="width:auto;"> Cash on delivery</label>
+        </div>
+
+        <div id="upiSection" style="margin-bottom:18px;">
+          <input type="text" id="upiId" placeholder="yourname@upi" style="width:100%; max-width:300px; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--surface); color:var(--text-primary);">
+        </div>
+
+        <div id="cardSection" style="display:none; margin-bottom:18px;">
+          <select id="cardSelect" style="width:100%; max-width:300px; padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--surface); color:var(--text-primary); margin-bottom:8px;"></select>
+          <div id="noCardMsg" style="display:none; font-size:13px; color:var(--text-secondary);">
+            You don't have a saved card yet. <a href="payments.html" style="color:var(--primary); font-weight:600;">Add one in Payments</a> to pay by card.
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-size:13px; color:var(--text-secondary);">Order total</div>
+            <div style="font-size:22px; font-weight:700;" id="cartTotal">₹0.00</div>
+          </div>
+          <button class="btn-primary" id="placeOrderBtn" type="button"><i class="ti ti-check"></i> Pay &amp; place order</button>
+        </div>
+        <p style="font-size:12px; color:var(--text-secondary); margin-top:10px; margin-bottom:0;">
+          This is a demo payment step for testing — no real payment gateway or card details are processed.
+        </p>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/checkout.js"></script>
+</body>
+</html>

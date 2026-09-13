@@ -1,0 +1,141 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  PHARMACY_OWNER
+  DISTRIBUTOR
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+model User {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  password      String
+  role          Role
+  businessName  String
+  licenseNumber String
+  createdAt     DateTime @default(now())
+
+  // Medicines this user lists (only populated for DISTRIBUTOR accounts)
+  medicinesListed Medicine[] @relation("DistributorMedicines")
+
+  // Orders this user placed (only populated for PHARMACY_OWNER accounts)
+  ordersPlaced Order[] @relation("BuyerOrders")
+
+  addresses      Address[]
+  notifications  Notification[]
+  paymentMethods PaymentMethod[]
+  feedback       Feedback[]
+}
+
+model Medicine {
+  id            String   @id @default(uuid())
+  name          String
+  manufacturer  String
+  price         Decimal  @db.Decimal(10, 2)
+  stock         Int
+  expiryDate    DateTime
+  createdAt     DateTime @default(now())
+
+  distributor   User   @relation("DistributorMedicines", fields: [distributorId], references: [id])
+  distributorId String
+
+  orderItems OrderItem[]
+}
+
+model Order {
+  id              String      @id @default(uuid())
+  status          OrderStatus @default(PENDING)
+  totalAmount     Decimal     @db.Decimal(10, 2)
+  paymentMethod   String      @default("COD")
+  deliveryAddress String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  buyer   User   @relation("BuyerOrders", fields: [buyerId], references: [id])
+  buyerId String
+
+  items   OrderItem[]
+  invoice Invoice?
+}
+
+model Invoice {
+  id       String   @id @default(uuid())
+  order    Order    @relation(fields: [orderId], references: [id])
+  orderId  String   @unique
+  amount   Decimal  @db.Decimal(10, 2)
+  issuedAt DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model OrderItem {
+  id           String  @id @default(uuid())
+  quantity     Int
+  priceAtOrder Decimal @db.Decimal(10, 2)
+
+  order      Order    @relation(fields: [orderId], references: [id])
+  orderId    String
+  medicine   Medicine @relation(fields: [medicineId], references: [id])
+  medicineId String
+}
+
+model Address {
+  id        String   @id @default(uuid())
+  label     String
+  line      String
+  city      String
+  state     String
+  pincode   String
+  phone     String
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+}
+
+// Deliberately never stores a full card number — only what's safe to keep:
+// the holder's name, last 4 digits, and expiry, for display purposes only.
+model PaymentMethod {
+  id             String   @id @default(uuid())
+  cardHolderName String
+  last4          String
+  expiryMonth    Int
+  expiryYear     Int
+  createdAt      DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+}
+
+model Feedback {
+  id        String   @id @default(uuid())
+  rating    Int
+  message   String
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+}

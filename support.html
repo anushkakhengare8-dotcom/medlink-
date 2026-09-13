@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<title>MedLink — Support</title>
+<script>
+  if (localStorage.getItem('medlink-theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body data-page="support">
+
+<div class="site-shell">
+  <div class="sidebar__backdrop" id="backdrop"></div>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="main">
+    <header class="topbar" id="topbar"></header>
+
+    <main class="content">
+
+      <div class="page-header">
+        <h1>Support</h1>
+        <p>Questions about ordering, distributors, or your account — we're here to help.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card__head"><h2>Contact us</h2></div>
+          <div id="contactStatus" class="status-banner"></div>
+          <form id="contactForm">
+            <div class="field">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" placeholder="What's this about?">
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <input type="text" id="message" placeholder="Describe your issue or question" style="height: 96px;">
+            </div>
+            <button class="btn-primary" type="submit"><i class="ti ti-send"></i> Send message</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <div class="card__head"><h2>Frequently asked</h2></div>
+          <div id="faqList">
+            <div class="faq-item">
+              <button class="faq-q" type="button">How do I place an order? <i class="ti ti-chevron-down"></i></button>
+              <div class="faq-a">Go to Search Medicines, add the items you need to your cart with quantities, then place the order from your cart. Your distributor will confirm stock and pricing.</div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" type="button">How do I track an order's status? <i class="ti ti-chevron-down"></i></button>
+              <div class="faq-a">Open the Orders page — every order shows its current status, from pending confirmation through to delivery.</div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" type="button">Can I reorder something I've bought before? <i class="ti ti-chevron-down"></i></button>
+              <div class="faq-a">Yes — once you've placed at least one order, a Reorder option becomes available on your dashboard to repeat it in one step.</div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" type="button">How are distributors verified? <i class="ti ti-chevron-down"></i></button>
+              <div class="faq-a">Distributors submit their wholesale drug license number at signup, which is checked before their account is activated on MedLink.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px; max-width:640px;">
+        <div class="card__head"><h2>Rate your experience</h2></div>
+        <div id="feedbackStatus" class="status-banner"></div>
+        <div id="starRow" style="display:flex; gap:6px; margin-bottom:16px; font-size:32px; line-height:1;">
+          <span class="star" data-value="1" style="cursor:pointer; color:var(--border);">★</span>
+          <span class="star" data-value="2" style="cursor:pointer; color:var(--border);">★</span>
+          <span class="star" data-value="3" style="cursor:pointer; color:var(--border);">★</span>
+          <span class="star" data-value="4" style="cursor:pointer; color:var(--border);">★</span>
+          <span class="star" data-value="5" style="cursor:pointer; color:var(--border);">★</span>
+        </div>
+        <form id="feedbackForm">
+          <div class="field">
+            <label for="feedbackMessage">What do you think of MedLink? (optional)</label>
+            <input type="text" id="feedbackMessage" placeholder="Tell us what's working and what isn't" style="height: 72px;">
+          </div>
+          <button class="btn-primary" type="submit"><i class="ti ti-message-2"></i> Submit feedback</button>
+        </form>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/support.js"></script>
+</body>
+</html>

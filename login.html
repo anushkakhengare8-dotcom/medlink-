@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <title>MedLink — Log In</title>
+
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+
+  <link rel="stylesheet" href="css/theme.css">
+
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --blue: #2563eb; --navy: #1e3a8a; --orange: #f97316;
+      --mint: #dff5ea; --mint-dark: #43a879; --mint-light: #f1fbf6;
+      --bg: #f7faf9; --text: #172033; --muted: #718096; --border: #e5eaf0;
+    }
+    body { margin: 0; min-height: 100vh; background: var(--bg); font-family: "IBM Plex Sans", Arial, sans-serif; color: var(--text); }
+    .login-page { min-height: 100vh; display: grid; grid-template-columns: 1.08fr 0.92fr; }
+    .network-side { position: relative; overflow: hidden; padding: 42px 7%; display: flex; flex-direction: column;
+      background: radial-gradient(circle at 15% 15%, #e6f7ef 0, transparent 30%), radial-gradient(circle at 90% 80%, #fff0df 0, transparent 28%), #f5faf8; }
+    .blob { position: absolute; border-radius: 50%; pointer-events: none; }
+    .blob-one { width: 430px; height: 430px; background: #e4f6ec; top: -190px; left: -170px; }
+    .blob-two { width: 300px; height: 300px; background: #eaf2ff; right: -130px; bottom: -100px; }
+    .blob-three { width: 150px; height: 150px; background: #fff0df; right: 15%; top: 12%; }
+    .logo { position: relative; z-index: 10; display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--navy); font-size: 20px; font-weight: 800; }
+    .logo svg { width: 32px; height: 32px; }
+    .network-content { position: relative; z-index: 5; max-width: 600px; margin: auto 0; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 7px; color: var(--mint-dark); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 17px; }
+    .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--mint-dark); box-shadow: 0 0 0 5px #dff5ea; }
+    .network-content h1 { margin: 0; max-width: 560px; color: var(--navy); font-size: clamp(40px, 4.3vw, 60px); line-height: 1.04; letter-spacing: -2px; font-weight: 800; }
+    .network-content h1 span { color: var(--mint-dark); }
+    .network-description { max-width: 510px; margin: 22px 0 0; color: var(--muted); font-size: 15px; line-height: 1.7; }
+    .network { position: relative; width: 100%; height: 245px; margin-top: 42px; }
+    .connection { position: absolute; height: 2px; background: repeating-linear-gradient(to right, #b9dcca 0, #b9dcca 8px, transparent 8px, transparent 15px); transform-origin: left center; }
+    .connection-one { width: 210px; left: 115px; top: 110px; transform: rotate(5deg); }
+    .connection-two { width: 210px; left: 320px; top: 110px; transform: rotate(-5deg); }
+    .connection-dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--mint-dark); box-shadow: 0 0 0 5px #e2f5eb; }
+    .dot-one { left: 205px; top: 110px; }
+    .dot-two { left: 390px; top: 100px; }
+    .network-card { position: absolute; width: 125px; padding: 17px 13px; background: rgba(255,255,255,.92); border: 1px solid rgba(255,255,255,.8); border-radius: 15px; box-shadow: 0 18px 35px rgba(38, 70, 55, .10); text-align: center; backdrop-filter: blur(10px); }
+    .network-card-icon { width: 43px; height: 43px; margin: 0 auto 9px; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-size: 20px; }
+    .network-card strong { display: block; color: var(--navy); font-size: 12px; }
+    .network-card small { display: block; margin-top: 4px; color: #94a3b8; font-size: 9px; }
+    .pharmacy-card { left: 0; top: 42px; }
+    .pharmacy-card .network-card-icon { color: var(--blue); background: #eaf2ff; }
+    .medlink-card { left: 50%; top: 15px; transform: translateX(-50%); width: 145px; border: 1px solid #cfeee0; background: linear-gradient(145deg, #ffffff, #f0faf5); }
+    .medlink-card .network-card-icon { color: white; background: var(--mint-dark); box-shadow: 0 8px 16px rgba(67,168,121,.22); }
+    .supplier-card { right: 0; top: 42px; }
+    .supplier-card .network-card-icon { color: var(--orange); background: #fff0df; }
+    .float-pill { position: absolute; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 10px 25px rgba(30,58,138,.10); }
+    .pill-one { width: 38px; height: 38px; background: #dceaff; left: 8%; top: 5px; }
+    .pill-two { width: 27px; height: 27px; background: #ffe2c8; right: 23%; bottom: 15px; }
+    .pill-three { width: 20px; height: 20px; background: #d9f2e5; right: 3%; top: 8px; }
+    .trust-strip { position: relative; z-index: 5; display: flex; align-items: center; gap: 10px; color: #7b8a84; font-size: 10px; }
+    .trust-dot { width: 6px; height: 6px; background: var(--mint-dark); border-radius: 50%; }
+    .form-side { position: relative; display: flex; align-items: center; justify-content: center; padding: 45px 8%; background: white; }
+    .form-side::before { content: ""; position: absolute; width: 240px; height: 240px; border-radius: 50%; background: #f0faf5; right: -100px; top: -80px; }
+    .form-side::after { content: ""; position: absolute; width: 120px; height: 120px; border-radius: 50%; background: #fff3e8; left: -60px; bottom: 10%; }
+    .login-card { position: relative; z-index: 3; width: 100%; max-width: 420px; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 40px; color: #7b8797; text-decoration: none; font-size: 12px; font-weight: 600; transition: .2s; }
+    .back-link:hover { color: var(--blue); }
+    .form-head { margin-bottom: 28px; }
+    .form-head .mini-label { color: var(--orange); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .09em; }
+    .form-head h2 { margin: 8px 0 8px; color: var(--navy); font-size: 34px; letter-spacing: -1px; line-height: 1.15; }
+    .form-head p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .status-banner { margin-bottom: 15px; }
+    .field { margin-bottom: 19px; }
+    .field label { display: block; margin-bottom: 7px; color: #334155; font-size: 12px; font-weight: 700; }
+    .input-box { position: relative; }
+    .input-box > i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #9aa6b5; font-size: 17px; pointer-events: none; }
+    .field input { width: 100%; height: 52px; padding: 0 15px 0 43px; border: 1px solid var(--border); border-radius: 10px; background: #f9fbfc; color: var(--text); font-size: 13px; outline: none; transition: .2s; }
+    .field input:focus { background: white; border-color: var(--mint-dark); box-shadow: 0 0 0 4px rgba(67,168,121,.10); }
+    .field input::placeholder { color: #a8b1bc; }
+    .error { display: none; margin-top: 5px; color: #dc2626; font-size: 11px; }
+    .password-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); border: 0; background: transparent; color: #9aa6b5; cursor: pointer; font-size: 17px; }
+    .password-toggle:hover { color: var(--mint-dark); }
+    .login-button { width: 100%; height: 52px; margin-top: 5px; border: 0; border-radius: 10px; cursor: pointer; background: linear-gradient(100deg, var(--blue), var(--mint-dark)); color: white; font-size: 13px; font-weight: 700; box-shadow: 0 12px 25px rgba(67,168,121,.18); transition: .25s; }
+    .login-button:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(67,168,121,.24); }
+    .divider { display: flex; align-items: center; gap: 12px; margin: 25px 0; color: #a0aab6; font-size: 10px; }
+    .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: #e8edf1; }
+    .signup-box { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 15px 16px; border: 1px solid #dcefe5; border-radius: 11px; background: #f3fbf7; color: #66756e; font-size: 12px; }
+    .signup-box a { color: var(--mint-dark); font-weight: 800; text-decoration: none; white-space: nowrap; }
+    .signup-box a:hover { text-decoration: underline; }
+    .secure { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 18px; color: #9aa5af; font-size: 10px; }
+    .secure i { color: var(--mint-dark); }
+    @media (max-width: 900px) {
+      .login-page { grid-template-columns: 1fr; }
+      .network-side { min-height: 570px; }
+      .form-side { min-height: 650px; }
+      .network-content { margin: 65px 0 20px; }
+    }
+    @media (max-width: 560px) {
+      .network-side { min-height: 520px; padding: 28px 22px; }
+      .network-content h1 { font-size: 38px; letter-spacing: -1.3px; }
+      .network-description { font-size: 13px; }
+      .network { transform: scale(.82); transform-origin: left top; width: 122%; }
+      .form-side { padding: 35px 22px; }
+      .form-head h2 { font-size: 29px; }
+      .signup-box { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+<div class="login-page">
+
+  <section class="network-side">
+    <div class="blob blob-one"></div>
+    <div class="blob blob-two"></div>
+    <div class="blob blob-three"></div>
+
+    <a href="index.html" class="logo">
+      <svg viewBox="0 0 32 32">
+        <path d="M7,5 L7,26" fill="none" stroke="#fb923c" stroke-width="6" stroke-linecap="round"/>
+        <path d="M8,6 L16,15" fill="none" stroke="#f97316" stroke-width="6" stroke-linecap="round"/>
+        <path d="M25,5 L25,26" fill="none" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/>
+        <path d="M24,6 L16,15" fill="none" stroke="#0ea5e9" stroke-width="6" stroke-linecap="round"/>
+        <rect x="13" y="13.5" width="6" height="13.4" rx="3" fill="none" stroke="#1e3a8a" stroke-width="1.4"/>
+      </svg>
+      MedLink
+    </a>
+
+    <div class="network-content">
+      <div class="eyebrow">THE B2B PHARMACEUTICAL NETWORK</div>
+      <h1>Connecting pharmacies with <span>trusted suppliers.</span></h1>
+      <p class="network-description">One platform for discovering medicines, checking availability, placing orders and keeping your pharmaceutical supply moving.</p>
+
+      <div class="network">
+        <span class="float-pill pill-one"><i class="ti ti-pill"></i></span>
+        <span class="float-pill pill-two"><i class="ti ti-pill"></i></span>
+        <span class="float-pill pill-three"><i class="ti ti-pill"></i></span>
+
+        <div class="connection connection-one"></div>
+        <div class="connection connection-two"></div>
+        <div class="connection-dot dot-one"></div>
+        <div class="connection-dot dot-two"></div>
+
+        <div class="network-card pharmacy-card">
+          <div class="network-card-icon"><i class="ti ti-building-store"></i></div>
+          <strong>Pharmacy</strong><small>Find medicines</small>
+        </div>
+        <div class="network-card medlink-card">
+          <div class="network-card-icon"><i class="ti ti-link"></i></div>
+          <strong>MedLink</strong><small>Connect &amp; order</small>
+        </div>
+        <div class="network-card supplier-card">
+          <div class="network-card-icon"><i class="ti ti-package"></i></div>
+          <strong>Supplier</strong><small>Fulfill orders</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="trust-strip">
+      <span class="trust-dot"></span>
+      <span>Secure B2B pharmaceutical procurement</span>
+    </div>
+  </section>
+
+  <section class="form-side">
+    <div class="login-card">
+      <a href="index.html" class="back-link"><i class="ti ti-arrow-left"></i> Back to MedLink</a>
+
+      <div class="form-head">
+        <span class="mini-label">Welcome back</span>
+        <h2>Log in to MedLink</h2>
+        <p>Continue managing your pharmaceutical supply.</p>
+      </div>
+
+      <div id="statusBanner" class="status-banner"></div>
+
+      <form id="loginForm" novalidate>
+        <div class="field" id="emailField">
+          <label for="email">Email address</label>
+          <div class="input-box">
+            <i class="ti ti-mail"></i>
+            <input type="email" id="email" name="email" placeholder="you@pharmacy.com" autocomplete="email">
+          </div>
+          <span class="error">Enter a valid email address.</span>
+        </div>
+
+        <div class="field" id="passwordField">
+          <label for="password">Password</label>
+          <div class="input-box">
+            <i class="ti ti-lock"></i>
+            <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password">
+            <button type="button" class="password-toggle" id="togglePassword" aria-label="Show password"><i class="ti ti-eye"></i></button>
+          </div>
+          <span class="error">Password is required.</span>
+        </div>
+
+        <button type="submit" class="login-button"><i class="ti ti-arrow-right"></i> Continue to MedLink</button>
+      </form>
+
+      <div class="divider">New to MedLink?</div>
+
+      <div class="signup-box">
+        <span>Don't have an account yet?</span>
+        <a href="signup.html">Create your account →</a>
+      </div>
+
+      <div class="secure"><i class="ti ti-shield-check"></i> Secure access for pharmacies &amp; suppliers</div>
+    </div>
+  </section>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+
+<script>
+  const togglePassword = document.getElementById("togglePassword");
+  const password = document.getElementById("password");
+  togglePassword.addEventListener("click", function () {
+    const show = password.type === "password";
+    password.type = show ? "text" : "password";
+    this.innerHTML = show ? '<i class="ti ti-eye-off"></i>' : '<i class="ti ti-eye"></i>';
+    this.setAttribute("aria-label", show ? "Hide password" : "Show password");
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<title>MedLink — Search Medicines</title>
+<script>
+  if (localStorage.getItem('medlink-theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body data-page="search">
+
+<div class="site-shell">
+  <div class="sidebar__backdrop" id="backdrop"></div>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="main">
+    <header class="topbar" id="topbar"></header>
+
+    <main class="content">
+
+      <div class="page-header" id="pageHeader">
+        <h1>Search medicines</h1>
+        <p>Find medicines by name across your connected distributors.</p>
+      </div>
+
+      <div class="status-banner" id="statusBanner"></div>
+
+      <!-- ===== Pharmacy owner view: search + results ===== -->
+      <div id="ownerSection" style="display:none;">
+        <div class="card" style="position:relative;">
+          <form class="search-row" id="searchForm" autocomplete="off">
+            <input type="search" id="searchInput" placeholder="Search by medicine name, e.g. Paracetamol 650mg">
+            <button class="btn-primary" type="submit"><i class="ti ti-search"></i> Search</button>
+          </form>
+          <div id="suggestionsBox" style="display:none; position:absolute; left:20px; right:20px; top:64px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); box-shadow:0 8px 24px rgba(0,0,0,0.12); z-index:20; overflow:hidden;"></div>
+        </div>
+
+        <div class="card" style="margin-top:16px;">
+          <div class="table-wrap">
+            <table class="data-table" id="resultsTable" style="display:none;">
+              <thead>
+                <tr>
+                  <th>Medicine</th>
+                  <th>Manufacturer</th>
+                  <th>Distributor</th>
+                  <th>City</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th>Qty</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="resultsBody"></tbody>
+            </table>
+          </div>
+          <div class="empty-state" id="resultsEmptyState">
+            <div class="empty-state__icon"><i class="ti ti-search"></i></div>
+            <h3 id="emptyTitle">No medicines listed yet</h3>
+            <p id="emptyText">Once a distributor lists their catalog, you'll be able to search and add items straight to your cart.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Distributor view: bulk add + manage listings ===== -->
+      <div id="distributorSection" style="display:none;">
+        <div class="card">
+          <h3 style="margin-top:0;">Add new stock</h3>
+          <p style="font-size:13px; color:var(--text-secondary); margin-top:-6px;">Fill in a row per medicine, add more as needed, then submit them all together.</p>
+          <div class="table-wrap">
+            <table class="data-table" id="bulkTable">
+              <thead>
+                <tr>
+                  <th>Medicine name</th>
+                  <th>Manufacturer</th>
+                  <th>Price (₹)</th>
+                  <th>Stock</th>
+                  <th>Expiry date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="bulkTableBody"></tbody>
+            </table>
+          </div>
+          <button class="btn-secondary" type="button" id="addRowBtn" style="margin-top:12px;"><i class="ti ti-plus"></i> Add another row</button>
+          <div style="margin-top:16px;">
+            <button class="btn-primary" type="button" id="submitBulkBtn"><i class="ti ti-check"></i> Add all to catalog</button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px;">
+          <h3 style="margin-top:0;">Your listings</h3>
+          <div class="table-wrap">
+            <table class="data-table" id="myListingsTable" style="display:none;">
+              <thead>
+                <tr>
+                  <th>Medicine</th>
+                  <th>Manufacturer</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                </tr>
+              </thead>
+              <tbody id="myListingsBody"></tbody>
+            </table>
+          </div>
+          <div class="empty-state" id="listingsEmptyState">
+            <div class="empty-state__icon"><i class="ti ti-package"></i></div>
+            <h3>You haven't listed anything yet</h3>
+            <p>Add your first medicine above — pharmacy owners will be able to search and order it right away.</p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/medicines.js"></script>
+</body>
+</html>

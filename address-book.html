@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<title>MedLink — Address Book</title>
+<script>
+  if (localStorage.getItem('medlink-theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body data-page="address">
+
+<div class="site-shell">
+  <div class="sidebar__backdrop" id="backdrop"></div>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="main">
+    <header class="topbar" id="topbar"></header>
+
+    <main class="content">
+
+      <div class="page-header">
+        <h1>Address book</h1>
+        <p>Delivery addresses distributors will ship your orders to.</p>
+      </div>
+
+      <div class="status-banner" id="statusBanner"></div>
+
+      <div class="card" style="max-width:640px;">
+        <div class="card__head">
+          <h2>Saved addresses</h2>
+        </div>
+
+        <div id="addressEmpty" class="empty-state">
+          <div class="empty-state__icon"><i class="ti ti-map-pin"></i></div>
+          <h3>No addresses saved yet</h3>
+          <p>Add your pharmacy's delivery address so distributors know where to ship.</p>
+          <button class="btn-primary" id="openFormBtn" type="button"><i class="ti ti-plus"></i> Add address</button>
+        </div>
+
+        <div id="addressList" style="display:none;"></div>
+
+        <form id="addressForm" style="display:none; margin-top: 12px;">
+          <div class="field">
+            <label for="addrLabel">Label</label>
+            <input type="text" id="addrLabel" placeholder="e.g. Main store, Warehouse">
+          </div>
+          <div class="field">
+            <label for="addrLine">Address line</label>
+            <input type="text" id="addrLine" placeholder="Shop number, street, area">
+          </div>
+          <div class="form-grid">
+            <div class="field">
+              <label for="addrCity">City</label>
+              <input type="text" id="addrCity" placeholder="City">
+            </div>
+            <div class="field">
+              <label for="addrState">State</label>
+              <input type="text" id="addrState" placeholder="State">
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="field">
+              <label for="addrPincode">Pincode</label>
+              <input type="text" id="addrPincode" placeholder="6-digit pincode" maxlength="6">
+            </div>
+            <div class="field">
+              <label for="addrPhone">Phone</label>
+              <input type="tel" id="addrPhone" placeholder="Contact number">
+            </div>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn-primary" type="submit">Save address</button>
+            <button class="btn-secondary" type="button" id="cancelFormBtn">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/address-book.js"></script>
+</body>
+</html>

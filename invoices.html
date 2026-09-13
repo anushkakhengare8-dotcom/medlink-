@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<title>MedLink — Invoices</title>
+<script>
+  if (localStorage.getItem('medlink-theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body data-page="invoices">
+
+<div class="site-shell">
+  <div class="sidebar__backdrop" id="backdrop"></div>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="main">
+    <header class="topbar" id="topbar"></header>
+
+    <main class="content">
+
+      <div class="page-header">
+        <h1>Invoices</h1>
+        <p>Invoices are generated automatically once an order is delivered.</p>
+      </div>
+
+      <div class="card">
+        <div class="table-wrap">
+          <table class="data-table" id="invoicesTable" style="display:none;">
+            <thead>
+              <tr>
+                <th>Invoice #</th>
+                <th>Order</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="invoicesBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="invoicesEmptyState">
+          <div class="empty-state__icon"><i class="ti ti-file-invoice"></i></div>
+          <h3>No invoices yet</h3>
+          <p>Once one of your orders is delivered, its invoice will show up here.</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/invoices.js"></script>
+</body>
+</html>

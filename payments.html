@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<title>MedLink — Payments</title>
+<script>
+  if (localStorage.getItem('medlink-theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body data-page="payments">
+
+<div class="site-shell">
+  <div class="sidebar__backdrop" id="backdrop"></div>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="main">
+    <header class="topbar" id="topbar"></header>
+
+    <main class="content">
+
+      <div class="page-header">
+        <h1>Payments</h1>
+        <p>Manage how you pay distributors and review your payment history.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card__head">
+            <h2>Saved payment methods</h2>
+            <a id="addMethodLink" href="#" onclick="return false;">+ Add method</a>
+          </div>
+
+          <div id="methodsEmpty" class="empty-state">
+            <div class="empty-state__icon"><i class="ti ti-credit-card"></i></div>
+            <h3>No payment methods added</h3>
+            <p>Add a card or bank account to pay distributors faster at checkout.</p>
+            <button class="btn-primary" id="openFormBtn" type="button"><i class="ti ti-plus"></i> Add payment method</button>
+          </div>
+
+          <div id="methodsList" style="display:none;"></div>
+
+          <form id="paymentForm" style="display:none; margin-top: 12px;">
+            <div id="paymentStatus" class="status-banner"></div>
+            <div class="field" id="cardNameField">
+              <label for="cardName">Name on card</label>
+              <input type="text" id="cardName" placeholder="As shown on your card">
+              <div class="error-text" style="display:none; color:#b23a3a; font-size:12px; margin-top:4px;">Required.</div>
+            </div>
+            <div class="form-grid">
+              <div class="field" id="cardNumberField">
+                <label for="cardNumber">Card number</label>
+                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+              </div>
+              <div class="field" id="cardExpiryField">
+                <label for="cardExpiry">Expiry</label>
+                <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5">
+              </div>
+            </div>
+            <div style="display:flex; gap:10px;">
+              <button class="btn-primary" type="submit">Save method</button>
+              <button class="btn-secondary" type="button" id="cancelFormBtn">Cancel</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card">
+          <div class="card__head"><h2>Payment history</h2></div>
+          <div class="table-wrap">
+            <table class="data-table" id="historyTable" style="display:none;">
+              <thead>
+                <tr><th>Date</th><th>Method</th><th>Order</th><th>Amount</th></tr>
+              </thead>
+              <tbody id="historyBody"></tbody>
+            </table>
+          </div>
+          <div class="empty-state" id="historyEmpty">
+            <div class="empty-state__icon"><i class="ti ti-receipt"></i></div>
+            <h3>No payments yet</h3>
+            <p>Payments you make on orders will be listed here.</p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/payments.js"></script>
+</body>
+</html>

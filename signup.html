@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <title>MedLink — Create Account</title>
+
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --blue: #2563eb; --blue-soft: #eaf2ff; --navy: #1e3a8a;
+      --green: #43a879; --green-soft: #e1f5ea;
+      --orange: #f97316; --orange-soft: #fff0df;
+      --bg: #f7faf9; --text: #172033; --muted: #718096; --border: #e4e9ef;
+    }
+    body { margin: 0; min-height: 100vh; background: var(--bg); font-family: "IBM Plex Sans", Arial, sans-serif; color: var(--text); }
+    .register-page { min-height: 100vh; display: grid; grid-template-columns: .92fr 1.08fr; }
+    .brand-side { position: relative; overflow: hidden; padding: 38px 7%; display: flex; flex-direction: column;
+      background: radial-gradient(circle at 20% 15%, #e2f5ea 0, transparent 31%), radial-gradient(circle at 85% 82%, #fff0df 0, transparent 30%), #f5faf8; }
+    .shape { position: absolute; border-radius: 50%; pointer-events: none; }
+    .shape-green { width: 390px; height: 390px; background: #e1f5ea; top: -190px; left: -170px; }
+    .shape-blue { width: 270px; height: 270px; background: #e8f0ff; right: -120px; bottom: -90px; }
+    .shape-orange { width: 115px; height: 115px; background: #fff0df; right: 15%; top: 12%; }
+    .brand-logo { position: relative; z-index: 5; display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--navy); font-size: 20px; font-weight: 800; }
+    .brand-logo svg { width: 32px; height: 32px; }
+    .brand-content { position: relative; z-index: 4; max-width: 500px; margin: auto 0; }
+    .brand-eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--green); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 18px; }
+    .brand-eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 5px var(--green-soft); }
+    .brand-content h1 { margin: 0; color: var(--navy); font-size: clamp(40px, 4vw, 57px); line-height: 1.04; letter-spacing: -1.8px; font-weight: 800; }
+    .brand-content h1 span { color: var(--green); }
+    .brand-text { max-width: 460px; margin-top: 21px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .network-art { position: relative; height: 250px; margin-top: 35px; }
+    .network-line { position: absolute; height: 2px; background: repeating-linear-gradient(to right, #afd6c1 0, #afd6c1 8px, transparent 8px, transparent 15px); }
+    .line-left { width: 155px; left: 94px; top: 116px; transform: rotate(3deg); }
+    .line-right { width: 155px; left: 300px; top: 116px; transform: rotate(-3deg); }
+    .network-node { position: absolute; width: 105px; padding: 14px 9px; border-radius: 14px; background: rgba(255,255,255,.94); border: 1px solid rgba(255,255,255,.9); box-shadow: 0 15px 30px rgba(35,70,55,.10); text-align: center; backdrop-filter: blur(8px); }
+    .node-icon { width: 40px; height: 40px; margin: auto; display: flex; align-items: center; justify-content: center; border-radius: 11px; font-size: 18px; }
+    .network-node strong { display: block; margin-top: 8px; color: var(--navy); font-size: 11px; }
+    .network-node small { display: block; margin-top: 4px; color: #98a4ad; font-size: 8px; }
+    .node-pharmacy { left: 0; top: 66px; }
+    .node-pharmacy .node-icon { color: var(--blue); background: var(--blue-soft); }
+    .node-medlink { left: 50%; top: 28px; transform: translateX(-50%); width: 120px; background: linear-gradient(145deg, white, #effaf4); border-color: #d4eddf; }
+    .node-medlink .node-icon { color: white; background: var(--green); box-shadow: 0 7px 16px rgba(67,168,121,.2); }
+    .node-distributor { right: 0; top: 66px; }
+    .node-distributor .node-icon { color: var(--orange); background: var(--orange-soft); }
+    .floating-pill { position: absolute; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 8px 20px rgba(30,58,138,.08); }
+    .pill-a { width: 34px; height: 34px; background: var(--blue-soft); left: 12%; top: 15px; color: var(--blue); }
+    .pill-b { width: 28px; height: 28px; background: var(--orange-soft); right: 22%; bottom: 10px; color: var(--orange); }
+    .pill-c { width: 20px; height: 20px; background: var(--green-soft); right: 2%; top: 8px; }
+    .brand-bottom { position: relative; z-index: 4; display: flex; align-items: center; justify-content: space-between; color: #87968e; font-size: 9px; letter-spacing: .06em; }
+    .brand-bottom strong { color: var(--navy); }
+    .form-side { position: relative; overflow: hidden; padding: 35px 7%; display: flex; justify-content: center; align-items: center; background: white; }
+    .form-side::before { content: ""; position: absolute; width: 300px; height: 300px; border-radius: 50%; background: #eef9f4; top: -170px; right: -120px; }
+    .form-side::after { content: ""; position: absolute; width: 130px; height: 130px; border-radius: 50%; background: #fff2e6; bottom: 5%; left: -70px; }
+    .register-container { position: relative; z-index: 5; width: 100%; max-width: 560px; max-height: 94vh; overflow-y: auto; padding-right: 5px; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 22px; color: #8995a2; text-decoration: none; font-size: 11px; font-weight: 700; }
+    .back-link:hover { color: var(--blue); }
+    .form-heading { margin-bottom: 19px; }
+    .form-heading .eyebrow { color: var(--orange); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .form-heading h2 { margin: 7px 0 5px; color: var(--navy); font-size: 31px; line-height: 1.1; letter-spacing: -.8px; }
+    .form-heading p { margin: 0; color: var(--muted); font-size: 12px; }
+    #statusBanner { margin-bottom: 13px; }
+    .role-section { margin-bottom: 20px; }
+    .role-title { display: block; color: #334155; font-size: 11px; font-weight: 800; margin-bottom: 8px; }
+    .role-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .role-options input { position: absolute; opacity: 0; pointer-events: none; }
+    .role-card { position: relative; display: flex; align-items: center; gap: 11px; min-height: 67px; padding: 11px 13px; border: 1px solid var(--border); border-radius: 12px; background: #fafcfc; cursor: pointer; transition: .22s; }
+    .role-card:hover { border-color: #b8dccc; background: #f5fbf8; transform: translateY(-1px); }
+    .role-card-icon { min-width: 39px; height: 39px; display: flex; align-items: center; justify-content: center; border-radius: 10px; font-size: 18px; }
+    .pharmacy-icon { color: var(--blue); background: var(--blue-soft); }
+    .distributor-icon { color: var(--orange); background: var(--orange-soft); }
+    .role-card strong { display: block; color: var(--navy); font-size: 12px; }
+    .role-card small { display: block; margin-top: 3px; color: #97a2ad; font-size: 9px; }
+    #rolePharmacy:checked + .role-card { border-color: #9bd2b6; background: linear-gradient(135deg, #f1fbf6, #ffffff); box-shadow: 0 6px 16px rgba(67,168,121,.09); }
+    #roleDistributor:checked + .role-card { border-color: #f7c69d; background: linear-gradient(135deg, #fff7ef, #ffffff); box-shadow: 0 6px 16px rgba(249,115,22,.08); }
+    .selected-check { position: absolute; right: 10px; top: 9px; width: 17px; height: 17px; display: none; align-items: center; justify-content: center; border-radius: 50%; background: var(--green); color: white; font-size: 9px; }
+    #rolePharmacy:checked + .role-card .selected-check, #roleDistributor:checked + .role-card .selected-check { display: flex; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field { margin-bottom: 13px; }
+    .field label { display: block; margin-bottom: 6px; color: #334155; font-size: 11px; font-weight: 700; }
+    .field input { width: 100%; height: 45px; padding: 0 12px; border: 1px solid var(--border); border-radius: 8px; background: #fafcfc; color: var(--text); font-size: 12px; outline: none; transition: .2s; }
+    .field input:focus { background: white; border-color: var(--green); box-shadow: 0 0 0 3px rgba(67,168,121,.09); }
+    .field input::placeholder { color: #aab3bd; }
+    .hint { display: block; margin-top: 4px; color: #98a4ad; font-size: 9px; line-height: 1.4; }
+    .error { display: none; color: #dc2626; font-size: 9px; margin-top: 4px; }
+    .create-button { width: 100%; height: 49px; margin-top: 4px; border: none; border-radius: 9px; background: linear-gradient(100deg, var(--blue), var(--green)); color: white; font-size: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 22px rgba(67,168,121,.17); transition: .22s; }
+    .create-button:hover { transform: translateY(-2px); box-shadow: 0 14px 27px rgba(67,168,121,.23); }
+    .already { margin-top: 16px; text-align: center; color: #8995a2; font-size: 11px; }
+    .already a { color: var(--blue); text-decoration: none; font-weight: 800; }
+    .already a:hover { text-decoration: underline; }
+    .security { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px; color: #9aa5ae; font-size: 9px; }
+    .security i { color: var(--green); }
+    @media (max-width: 950px) {
+      .register-page { grid-template-columns: 1fr; }
+      .brand-side { min-height: 540px; }
+      .form-side { min-height: 700px; }
+      .brand-content { margin: 60px 0 20px; }
+    }
+    @media (max-width: 570px) {
+      .brand-side { min-height: 490px; padding: 27px 22px; }
+      .brand-content h1 { font-size: 37px; }
+      .brand-text { font-size: 12px; }
+      .network-art { transform: scale(.82); transform-origin: left top; width: 122%; }
+      .form-side { padding: 32px 20px; }
+      .role-options { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; gap: 0; }
+      .register-container { max-height: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="register-page">
+
+  <section class="brand-side">
+    <div class="shape shape-green"></div>
+    <div class="shape shape-blue"></div>
+    <div class="shape shape-orange"></div>
+
+    <a href="index.html" class="brand-logo">
+      <svg viewBox="0 0 32 32">
+        <path d="M7,5 L7,26" fill="none" stroke="#fb923c" stroke-width="6" stroke-linecap="round"/>
+        <path d="M8,6 L16,15" fill="none" stroke="#f97316" stroke-width="6" stroke-linecap="round"/>
+        <path d="M25,5 L25,26" fill="none" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/>
+        <path d="M24,6 L16,15" fill="none" stroke="#0ea5e9" stroke-width="6" stroke-linecap="round"/>
+        <rect x="13" y="13.5" width="6" height="13.4" rx="3" fill="none" stroke="#1e3a8a" stroke-width="1.4"/>
+      </svg>
+      MedLink
+    </a>
+
+    <div class="brand-content">
+      <div class="brand-eyebrow">JOIN THE MEDLINK NETWORK</div>
+      <h1>One network.<br><span>Two sides.</span><br>Better supply.</h1>
+      <p class="brand-text">Whether you're running a pharmacy or supplying medicines, MedLink brings both sides together to make pharmaceutical procurement simpler, faster and more connected.</p>
+
+      <div class="network-art">
+        <span class="floating-pill pill-a"><i class="ti ti-pill"></i></span>
+        <span class="floating-pill pill-b"><i class="ti ti-pill"></i></span>
+        <span class="floating-pill pill-c"></span>
+        <div class="network-line line-left"></div>
+        <div class="network-line line-right"></div>
+        <div class="network-node node-pharmacy">
+          <div class="node-icon"><i class="ti ti-building-store"></i></div>
+          <strong>Pharmacy</strong><small>Orders stock</small>
+        </div>
+        <div class="network-node node-medlink">
+          <div class="node-icon"><i class="ti ti-link"></i></div>
+          <strong>MedLink</strong><small>Connects both</small>
+        </div>
+        <div class="network-node node-distributor">
+          <div class="node-icon"><i class="ti ti-package"></i></div>
+          <strong>Distributor</strong><small>Supplies stock</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="brand-bottom">
+      <span>MEDLINK / B2B PROCUREMENT</span>
+      <strong>EST. 2026</strong>
+    </div>
+  </section>
+
+  <section class="form-side">
+    <div class="register-container">
+      <a href="index.html" class="back-link"><i class="ti ti-arrow-left"></i> Back to MedLink</a>
+
+      <div class="form-heading">
+        <span class="eyebrow">CREATE YOUR ACCOUNT</span>
+        <h2>Join MedLink</h2>
+        <p>Choose your role and start connecting with the pharmaceutical supply network.</p>
+      </div>
+
+      <div id="statusBanner" class="status-banner"></div>
+
+      <form class="register-form" id="signupForm" novalidate>
+
+        <div class="role-section">
+          <span class="role-title">I am joining as</span>
+          <div class="role-options">
+            <input type="radio" id="rolePharmacy" name="role" value="PHARMACY_OWNER" checked>
+            <label for="rolePharmacy" class="role-card">
+              <div class="role-card-icon pharmacy-icon"><i class="ti ti-building-store"></i></div>
+              <div><strong>Pharmacy Owner</strong><small>Find &amp; order medicines</small></div>
+              <span class="selected-check"><i class="ti ti-check"></i></span>
+            </label>
+
+            <input type="radio" id="roleDistributor" name="role" value="DISTRIBUTOR">
+            <label for="roleDistributor" class="role-card">
+              <div class="role-card-icon distributor-icon"><i class="ti ti-truck-delivery"></i></div>
+              <div><strong>Distributor</strong><small>Supply &amp; manage medicines</small></div>
+              <span class="selected-check"><i class="ti ti-check"></i></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="field" id="nameField">
+            <label for="name">Full name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name">
+            <span class="error">Name is required.</span>
+          </div>
+          <div class="field" id="businessField">
+            <label for="businessName" id="businessLabel">Pharmacy name</label>
+            <input type="text" id="businessName" name="businessName" placeholder="e.g. Sunrise Medicals">
+            <span class="error">Business name is required.</span>
+          </div>
+        </div>
+
+        <div class="field" id="licenseField">
+          <label for="license" id="licenseLabel">Drug license number</label>
+          <input type="text" id="license" name="license" placeholder="e.g. MH-PC-2024-XXXXX">
+          <span class="hint">Used to verify your account — not shown publicly.</span>
+          <span class="error">License number is required.</span>
+        </div>
+
+        <div class="field" id="emailField">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="you@pharmacy.com" autocomplete="email">
+          <span class="error">Enter a valid email address.</span>
+        </div>
+
+        <div class="form-grid">
+          <div class="field" id="passwordField">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="At least 8 characters" autocomplete="new-password">
+            <span class="error">Password must be at least 8 characters.</span>
+          </div>
+          <div class="field" id="confirmField">
+            <label for="confirmPassword">Confirm password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter password" autocomplete="new-password">
+            <span class="error">Passwords do not match.</span>
+          </div>
+        </div>
+
+        <button type="submit" class="create-button"><i class="ti ti-user-plus"></i> Create my MedLink account</button>
+
+        <div class="already">Already part of MedLink? <a href="login.html">Log in →</a></div>
+
+        <div class="security"><i class="ti ti-shield-check"></i> Your account information is securely handled.</div>
+      </form>
+    </div>
+  </section>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>
