@@ -3,7 +3,7 @@
 A B2B pharmacy ordering platform connecting pharmacy owners with medicine distributors — real-time catalog search, order tracking, and automatic invoicing, replacing phone calls and paper orders.
 
 ## Live Demo
-[Add your live link here once deployed]
+[medlink-website.netlify.app]
 
 ## Tech Stack
 - **Frontend:** HTML, CSS, JavaScript (no framework)
